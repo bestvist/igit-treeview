@@ -1,5 +1,7 @@
 # GitLab-TreeView
 
+[gitlab-treeview](https://github.com/linsage/gitlab-treeview)
+
 Chrome extension to show a code tree on GitLab  :)
 
 ## Installation

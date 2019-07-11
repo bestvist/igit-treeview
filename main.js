@@ -42,9 +42,9 @@ var vm = {
         vm.apiRootUrl = window.location.origin;
         vm.project_id = $('#project_id').val() || $('#search_project_id').val();
         // 没有project元素时从社交头像链接取
-        if(!vm.project_id) {
+        if (!vm.project_id) {
             var links = $('meta[property="og:image"]').attr('content').split('/');
-            vm.project_id = links[links.length-2];
+            vm.project_id = links[links.length - 2];
         }
         // vm.apiRepoTree = vm.apiRootUrl + '/api/v4/projects/' + vm.project_id + '/repository/tree';
         vm.apiRepoTree = vm.apiRootUrl + '/api/v3/projects/' + vm.project_id + '/repository/tree';
@@ -145,7 +145,7 @@ var vm = {
             ztree.selectNode(ztree.getNodeByParam("id", selectNodeId));
         });
     },
-    openCurrentPathAndReturnNodeId: function(nodes) {
+    openCurrentPathAndReturnNodeId: function (nodes) {
         var path = $("#path").val();
         if (path.length === 0) {
             return path;
@@ -279,7 +279,7 @@ var vm = {
             //         } finally {}
             //     }
             // })
-
+            
             window.location.href = href;
         }
     },
@@ -354,7 +354,7 @@ var vm = {
         zTree.showNodes(nodeList);
     },
     // 容器是否处于调整大小状态
-    isResizing: function() {
+    isResizing: function () {
         return !!$(".gitlabTreeView_resizable").data("resize");
     },
     init: function () {
@@ -368,25 +368,40 @@ var vm = {
         vm.shortcuts_project = vm.shortcuts_project.substring(1);
         var shortcuts = vm.shortcuts_project.replace("/", " / ");
 
-        var nav = "<nav class='gitlabTreeView_sidebar'>";
-        nav += "<a class='gitlabTreeView_toggle'><i class='fa fa-arrow-left'></i></a>";
-        nav += "<div class='gitlabTreeView_content'>";
-        nav += "<div class='gitlabTreeView_resizable'></div>";
-        nav += "<div class='gitlabTreeView_header'>";
-        nav += "<div class='gitlabTreeView_header_repo'><i class='fa fa-gitlab gitlabTreeView_tab'></i>" + shortcuts + "</div>";
-        nav += "<div class='gitlabTreeView_header_branch'><i class='fa fa-share-alt gitlabTreeView_tab'></i>" + vm.repository_ref + "</div>";
-
-        nav += "<div class='gitlabTreeView_header_search'><input type='search' class='gitlabTreeView_search_text' placeholder='Search' /><i class='fa fa-search gitlabTreeView_search_icon'></i> <i class='fa fa-cog gitlabTreeView_cog_icon'></i></div>";
-
-        nav += "<div class='gitlabTreeView_header_setting'>"
-        nav += "<div><label><input type='checkbox' name='recursive' checked> Load entire tree at once</label></div>";
-        nav += "<div><button class='gitlabTreeView_header_setting_save'>Save</button></div>";
-        nav += "</div>";
-
-        nav += "</div>";
-        nav += "<div class='gitlabTreeView_body'><ul class='ztree' id='gitlabTreeView'></ul></div>";
-        nav += "</div>";
-        nav += "</div>";
+        var nav = `
+        <nav class='gitlabTreeView_sidebar'>
+            <a class='gitlabTreeView_toggle'><i class='fa fa-arrow-left'></i></a>
+            <div class='gitlabTreeView_content'>
+                <div class='gitlabTreeView_resizable'></div>
+                <div class='gitlabTreeView_header'>
+                    <div class='gitlabTreeView_header_repo'>
+                        <i class='fa fa-gitlab gitlabTreeView_tab'></i>${shortcuts}
+                    </div>
+                    <div class='gitlabTreeView_header_branch'>
+                        <i class='fa fa-share-alt gitlabTreeView_tab'></i>${vm.repository_ref}
+                    </div>
+                    <div class='gitlabTreeView_header_search'>
+                        <input type='search' class='gitlabTreeView_search_text' placeholder='Search' />
+                        <i class='fa fa-search gitlabTreeView_search_icon'></i> 
+                        <i class='fa fa-cog gitlabTreeView_cog_icon'></i>
+                    </div>
+                    <div class='gitlabTreeView_header_setting'>
+                        <div>
+                            <label>
+                                <input type='checkbox' name='recursive' checked> Load entire tree at once
+                            </label>
+                        </div>
+                        <div>
+                            <button class='gitlabTreeView_header_setting_save'>Save</button>
+                        </div>
+                    </div>
+                </div>
+                <div class='gitlabTreeView_body'>
+                    <ul class='ztree' id='gitlabTreeView'></ul>
+                </div>
+            </div>
+        </div>
+        `;
         $("body").append($(nav));
 
         //setting
@@ -409,19 +424,19 @@ var vm = {
 
         /** resize */
         // 调整容器宽度，最小宽度100px
-        $(".gitlabTreeView_resizable").on("mousedown", function(){
+        $(".gitlabTreeView_resizable").on("mousedown", function () {
             $(this).data("resize", true);
-        }).on("mouseup", function(){
+        }).on("mouseup", function () {
             $(this).data("resize", false);
         });
-        $(document).on("mousemove", function(event){
+        $(document).on("mousemove", function (event) {
             if (vm.isResizing()) {
                 var width = event.clientX < 100 ? 100 : event.clientX;
                 vm.setting.containerWidth = width + "px";
                 vm.showTree();
                 event.preventDefault();
             }
-        }).on("mouseup", function(){
+        }).on("mouseup", function () {
             if (vm.isResizing()) {
                 $(".gitlabTreeView_resizable").data("resize", false);
             }

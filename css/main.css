@@ -43,6 +43,7 @@
 }
 
 .ztree li a:hover {
+  color: #2591fd;
   text-decoration: underline
 }
 
@@ -233,14 +234,6 @@
   background-position: -126px -42px;
 }
 
-.ztree li span.button.noline_open {
-  background-position: -105px -84px;
-}
-
-.ztree li span.button.noline_close {
-  background-position: -126px -84px;
-}
-
 .ztree li span.button.root_docu {
   background: none;
 }
@@ -261,44 +254,36 @@
   background: none;
 }
 
-.ztree li span.button.ico_open:before {
-  display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  content: "\f07c";
-  padding-top: 4px;
-  padding-left: 4px;
-}
-
-.ztree li span.button.ico_open {
+.ztree li span.button.noline_open,
+.ztree li span.button.noline_close,
+.ztree li span.button.ico_open,
+.ztree li span.button.ico_close,
+.ztree li span.button.ico_docu {
   margin-right: 2px;
   background-image: none;
   vertical-align: top;
-  *vertical-align: middle
+  *vertical-align: middle;
 }
 
-.ztree li span.button.ico_close:before {
-  display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  content: "\f07b";
-  padding-top: 4px;
-  padding-left: 4px;
+.ztree li span.button.noline_open,
+.ztree li span.button.noline_close {
+  padding-left: 5px;
+  font-size: 12px;
 }
 
+.ztree li span.button.ico_open,
 .ztree li span.button.ico_close {
-  margin-right: 2px;
-  background-image: none;
-  vertical-align: top;
-  *vertical-align: middle
+  color: rgb(97, 174, 251);
 }
 
+.ztree li span.button.ico_docu {
+  color: #777;
+}
+
+.ztree li span.button.noline_open:before,
+.ztree li span.button.noline_close:before,
+.ztree li span.button.ico_open:before,
+.ztree li span.button.ico_close:before,
 .ztree li span.button.ico_docu:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
@@ -306,16 +291,28 @@
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  content: "\f0f6";
   padding-top: 4px;
   padding-left: 4px;
 }
 
-.ztree li span.button.ico_docu {
-  margin-right: 2px;
-  background-image: none;
-  vertical-align: top;
-  *vertical-align: middle;
+.ztree li span.button.noline_open:before {
+  content: "\f107";
+}
+
+.ztree li span.button.noline_close:before {
+  content: "\f105";
+}
+
+.ztree li span.button.ico_open:before {
+  content: "\f07c";
+}
+
+.ztree li span.button.ico_close:before {
+  content: "\f07b";
+}
+
+.ztree li span.button.ico_docu:before {
+  content: "\f0f6";
 }
 
 
@@ -447,7 +444,7 @@ a.gitlabTreeView_toggle {
   position: absolute;
   border: 1px solid rgba(27, 31, 35, 0.2);
   color: black;
-  border-radius: 0.25em;
+  border-radius: 50%;
   text-decoration: none;
   background-color: white;
 }
@@ -455,7 +452,8 @@ a.gitlabTreeView_toggle {
 .gitlabTreeView_content {
   height: 100%;
   overflow: auto;
-  background-color: rgba(61, 75, 98, 0.1);;
+  background-color: rgba(61, 75, 98, 0.1);
+  ;
 }
 
 .gitlabTreeView_header {
