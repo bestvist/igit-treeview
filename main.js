@@ -46,8 +46,7 @@ var vm = {
             var links = $('meta[property="og:image"]').attr('content').split('/');
             vm.project_id = links[links.length - 2];
         }
-        // vm.apiRepoTree = vm.apiRootUrl + '/api/v4/projects/' + vm.project_id + '/repository/tree';
-        vm.apiRepoTree = vm.apiRootUrl + '/api/v3/projects/' + vm.project_id + '/repository/tree';
+        vm.apiRepoTree = vm.apiRootUrl + '/api/v4/projects/' + vm.project_id + '/repository/tree';
         // vm.repository_ref = $('#repository_ref').val();
         vm.repository_ref = $('.qa-branches-select[data-selected]').attr('data-selected');
     },
@@ -103,7 +102,8 @@ var vm = {
         var param = {
             id: vm.project_id,
             recursive: true,
-            ref_name: vm.repository_ref
+            ref_name: vm.repository_ref,
+            per_page: 100000 // api v4需要加per_page参数，默认20
         };
 
         if (vm.rss_mode) {
@@ -291,7 +291,6 @@ var vm = {
         try {
             return localStorage.getItem(k) ? JSON.parse(localStorage.getItem(k)) : null;
         } catch (err) {
-            //console.info(err);
             localStorage.removeItem(k);
             return null;
         }
@@ -300,10 +299,10 @@ var vm = {
         localStorage.setItem(k, JSON.stringify(v));
     },
     getSetting: function () {
-        return vm.getLocalStorage("setting");
+        return vm.getLocalStorage("igit-treeview-setting");
     },
     saveSetting: function () {
-        return vm.setLocalStorage("setting", vm.setting);
+        return vm.setLocalStorage("igit-treeview-setting", vm.setting);
     },
     isNull: function (obj) {
         if (typeof (obj) == "undefined" || obj == "undefined") {
@@ -375,7 +374,7 @@ var vm = {
                 <div class='gitlabTreeView_resizable'></div>
                 <div class='gitlabTreeView_header'>
                     <div class='gitlabTreeView_header_repo'>
-                        <i class='fa fa-gitlab gitlabTreeView_tab'></i>${shortcuts}
+                        <i class='fa fa-git gitlabTreeView_tab'></i>${shortcuts}
                     </div>
                     <div class='gitlabTreeView_header_branch'>
                         <i class='fa fa-share-alt gitlabTreeView_tab'></i>${vm.repository_ref}
@@ -400,7 +399,7 @@ var vm = {
                     <ul class='ztree' id='gitlabTreeView'></ul>
                 </div>
             </div>
-        </div>
+        </nav>
         `;
         $("body").append($(nav));
 
