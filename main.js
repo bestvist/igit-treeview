@@ -46,7 +46,7 @@ var vm = {
             var links = $('meta[property="og:image"]').attr('content').split('/');
             vm.project_id = links[links.length - 2];
         }
-        vm.apiRepoTree = vm.apiRootUrl + '/api/v4/projects/' + vm.project_id + '/repository/tree';
+        vm.apiRepoTree = vm.apiRootUrl + '/api/v3/projects/' + vm.project_id + '/repository/tree';
         // vm.repository_ref = $('#repository_ref').val();
         vm.repository_ref = $('.qa-branches-select[data-selected]').attr('data-selected');
     },
@@ -103,7 +103,7 @@ var vm = {
             id: vm.project_id,
             recursive: true,
             ref_name: vm.repository_ref,
-            per_page: 100000 // api v4需要加per_page参数，默认20
+            // per_page: 100000 // api v4需要加per_page参数，默认20
         };
 
         if (vm.rss_mode) {
