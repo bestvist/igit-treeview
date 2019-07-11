@@ -374,7 +374,7 @@ var vm = {
                 <div class='gitlabTreeView_resizable'></div>
                 <div class='gitlabTreeView_header'>
                     <div class='gitlabTreeView_header_repo'>
-                        <i class='fa fa-git gitlabTreeView_tab'></i>${shortcuts}
+                        <i class='fa fa-bookmark gitlabTreeView_tab'></i>${shortcuts}
                     </div>
                     <div class='gitlabTreeView_header_branch'>
                         <i class='fa fa-share-alt gitlabTreeView_tab'></i>${vm.repository_ref}
