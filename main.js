@@ -43,6 +43,7 @@ var vm = {
         vm.project_id = $('#project_id').val() || $('#search_project_id').val();
         // 没有project元素时从社交头像链接取
         if (!vm.project_id) {
+            var project_path = location.pathname.split('/');
             var links = $('meta[property="og:image"]').attr('content').split('/');
             vm.project_id = links[links.length - 2];
         }
