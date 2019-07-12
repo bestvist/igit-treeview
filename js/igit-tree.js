@@ -32,7 +32,7 @@ class IGitTree {
         this.apiRepoTree = this.apiRootUrl + '/api/v3/projects/' + this.project_id + '/repository/tree';
         // this.repository_ref = $('#repository_ref').val();
         this.repository_ref = $('.qa-branches-select[data-selected]').attr('data-selected');
-        this.shortcuts = ("" + $(".shortcuts-project").attr("href")).substring(1).replace("/", " / ");
+        this.shortcuts = ("" + $(".shortcuts-project").attr("href")).substring(1);
     }
 
     /* 判断是否是 igit 页面 */
@@ -431,7 +431,7 @@ class IGitTree {
                 <div class='gitlabTreeView_resizable'></div>
                 <div class='gitlabTreeView_header'>
                     <div class='gitlabTreeView_header_repo'>
-                        <i class='fa fa-bookmark gitlabTreeView_tab'></i>${this.shortcuts}
+                        <i class='fa fa-bookmark gitlabTreeView_tab'></i>${this.shortcuts.replace('/',' / ')}
                     </div>
                     <div class='gitlabTreeView_header_branch'>
                         <i class='fa fa-share-alt gitlabTreeView_tab'></i>${this.repository_ref}
