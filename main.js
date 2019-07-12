@@ -41,11 +41,13 @@ var vm = {
         }
         vm.apiRootUrl = window.location.origin;
         vm.project_id = $('#project_id').val() || $('#search_project_id').val();
-        // 没有project元素时从社交头像链接取
+        // 没有project元素时取项目路径
+        // https://docs.gitlab.com/ee/api/projects.html#get-single-project
         if (!vm.project_id) {
-            var project_path = location.pathname.split('/');
-            var links = $('meta[property="og:image"]').attr('content').split('/');
-            vm.project_id = links[links.length - 2];
+            var repo_path = location.pathname.substr(1).split('/').reduce((path, repo, index) => {
+                return index < 2 ? (path + '/' + repo) : path;
+            });
+            vm.project_id = encodeURIComponent(repo_path);
         }
         vm.apiRepoTree = vm.apiRootUrl + '/api/v3/projects/' + vm.project_id + '/repository/tree';
         // vm.repository_ref = $('#repository_ref').val();
@@ -280,7 +282,7 @@ var vm = {
             //         } finally {}
             //     }
             // })
-            
+
             window.location.href = href;
         }
     },
