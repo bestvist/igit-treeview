@@ -338,9 +338,9 @@ class IGitTree {
     listenResize() {
         // 调整容器宽度，最小宽度100px
         $(".gitlabTreeView_resizable").on("mousedown", function () {
-            $(window).data("resize", true);
+            $(this).data("resize", true);
         }).on("mouseup", function () {
-            $(window).data("resize", false);
+            $(this).data("resize", false);
         });
         $(document).on("mousemove", (event) => {
             if (this.isResizing()) {
