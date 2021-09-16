@@ -24,12 +24,12 @@ class IGitTree {
 
         // 没有project元素时取项目路径 https://docs.gitlab.com/ee/api/projects.html#get-single-project
         if (!this.project_id) {
-            const repo_path = location.pathname.substr(1).split('/').reduce((path, repo, index) => {
-                return index < 2 ? (path + '/' + repo) : path;
+            const repo_path = location.pathname.substr(1).split(/\/blob\/|\/tree\//)[0].split('/').reduce((path, repo, index) => {
+                return path + '/' + repo;
             });
             this.project_id = encodeURIComponent(repo_path);
         }
-        this.apiRepoTree = this.apiRootUrl + '/api/v3/projects/' + this.project_id + '/repository/tree';
+        this.apiRepoTree = this.apiRootUrl + '/api/v4/projects/' + this.project_id + '/repository/tree';
         // this.repository_ref = $('#repository_ref').val();
         this.repository_ref = $('.qa-branches-select[data-selected]').attr('data-selected');
         this.shortcuts = ("" + $(".shortcuts-project").attr("href")).substring(1);
@@ -37,7 +37,7 @@ class IGitTree {
 
     /* 判断是否是 igit 页面 */
     isIGit() {
-        return !!document.querySelector("meta[content^='IGit']");
+        return !!document.querySelector("meta[content^='GitLab']");
     }
 
     isFilePage() {
@@ -247,11 +247,11 @@ class IGitTree {
             ref: this.repository_ref
         };
 
-        if (this.rss_mode) {
-            param.rss_token = this.rss_token;
-        } else {
-            param.private_token = this.private_token;
-        }
+        // if (this.rss_mode) {
+        //     param.rss_token = this.rss_token;
+        // } else {
+        //     param.private_token = this.private_token;
+        // }
 
         $.get(this.apiRepoTree, param, (result) => {
             if (parentNode) {
@@ -283,11 +283,11 @@ class IGitTree {
             // per_page: 100000 // api v4需要加per_page参数，默认20
         };
 
-        if (this.rss_mode) {
-            param.rss_token = this.rss_token;
-        } else {
-            param.private_token = this.private_token;
-        }
+        // if (this.rss_mode) {
+        //     param.rss_token = this.rss_token;
+        // } else {
+        //     param.private_token = this.private_token;
+        // }
 
         $.get(this.apiRepoTree, param, (result) => {
             let treeArr = [];
@@ -480,7 +480,17 @@ class IGitTree {
             },
             callback: {
                 onClick: (event, treeId, treeNode) => {
-                    this.selectNode(treeNode);
+                    if (treeNode.type === 'tree') {
+                        let ztree = this.getZTree();
+                        ztree.expandNode(treeNode, !treeNode.open, false, true)
+                        
+                        if (this.setting.recursive) {
+                            return;
+                        }
+                        this.loadNode(treeNode);
+                    } else {
+                        this.selectNode(treeNode);
+                    }
                 },
                 onExpand: (event, treeId, treeNode) => {
                     if (this.setting.recursive) {

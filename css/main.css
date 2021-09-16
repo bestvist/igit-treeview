@@ -45,12 +45,13 @@
 
 .ztree li a:hover {
   color: #2591fd;
-  text-decoration: underline
+  text-decoration: none;
+  background: #dee4e5;
 }
 
 .ztree li a.curSelectedNode {
   padding-top: 0px;
-  background-color: #e5e5e5;
+  background-color: rgb(219, 238, 255);
   color: black;
   height: 24px;
   opacity: 0.8;
@@ -199,8 +200,8 @@
 }
 
 .ztree li span.button.switch {
-  width: 21px;
-  height: 24px
+  width: 18px;
+  height: 24px;
 }
 
 .ztree li span.button.root_open {
@@ -278,7 +279,7 @@
 }
 
 .ztree li span.button.ico_docu {
-  color: #777;
+  color: #333;
 }
 
 .ztree li span.button.noline_open:before,
@@ -287,13 +288,13 @@
 .ztree li span.button.ico_close:before,
 .ztree li span.button.ico_docu:before {
   display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
+  font: normal normal normal 12px/1 FontAwesome;
+  font-size: 12px;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding-top: 4px;
-  padding-left: 4px;
+  padding-top: 6px;
+  padding-left: 6px;
 }
 
 .ztree li span.button.noline_open:before {
@@ -313,7 +314,15 @@
 }
 
 .ztree li span.button.ico_docu:before {
-  content: "\f0f6";
+  content: "\f016";
+}
+
+.ztree li a:hover > .button.ico_docu {
+  color: rgb(37, 145, 253);
+}
+
+.ztree li a:hover > .button.ico_docu:before {
+  content: "\f045"
 }
 
 
@@ -466,7 +475,7 @@ a.gitlabTreeView_toggle {
   /* background: none rgb(250, 251, 252); */
   border-bottom: 1px solid rgb(225, 228, 232);
   padding: 5px;
-  background: rgba(61, 75, 98, 0.8);
+  background: #555;
   color: #fff;
 }
 
