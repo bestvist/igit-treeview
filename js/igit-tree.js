@@ -465,7 +465,8 @@ class IGitTree {
     initTree() {
         let setting = {
             view: {
-                showLine: false
+                showLine: false,
+                dblClickExpand: false
             },
             data: {
                 key: {
